@@ -3,11 +3,27 @@ package fr.istic.aco.editor.impl;
 import fr.istic.aco.editor.api.Engine;
 import fr.istic.aco.editor.api.Selection;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.IOException;
+
 public class EngineImpl implements Engine {
     private Selection selection;
+    private Clipboard clipboard;
+
+    public EngineImpl(Selection selection) {
+        this.selection = selection;
+        this.clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+
+    }
 
     public EngineImpl(){
         this.selection = new SelectionImpl();
+        this.clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+
     }
     /**
      * Provides access to the selection control object
@@ -38,8 +54,17 @@ public class EngineImpl implements Engine {
      */
     @Override
     public String getClipboardContents() {
-        // TODO
-        return null;
+                String result = "";
+        try {
+
+            result = (String) clipboard.getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // System.out.println("String from Clipboard:" + result);
+        return result;
     }
 
     /**
@@ -49,7 +74,8 @@ public class EngineImpl implements Engine {
      */
     @Override
     public void cutSelectedText() {
-        // TODO
+        copySelectedText();
+        delete();
     }
 
     /**
@@ -59,7 +85,10 @@ public class EngineImpl implements Engine {
      */
     @Override
     public void copySelectedText() {
-        // TODO
+        String recup = getBufferContents().substring(selection.getBeginIndex(), selection.getEndIndex());
+        //System.out.println(recup);
+        StringSelection stringSelection = new StringSelection(recup);
+        clipboard.setContents(stringSelection, null);
     }
 
     /**
@@ -68,7 +97,7 @@ public class EngineImpl implements Engine {
      */
     @Override
     public void pasteClipboard() {
-        // TODO
+        insert(getClipboardContents());
     }
 
     /**
@@ -86,6 +115,7 @@ public class EngineImpl implements Engine {
      */
     @Override
     public void delete() {
-
+        //((SelectionImpl) selection).getBuffer().replace(selection.getBeginIndex(), selection.getEndIndex(),"");
+        insert("");
     }
 }

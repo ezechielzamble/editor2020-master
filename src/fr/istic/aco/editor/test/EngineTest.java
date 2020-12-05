@@ -46,7 +46,8 @@ class EngineTest {
         Selection selection = engine.getSelection();
         selection.setBeginIndex(1);selection.setEndIndex(4);
         engine.copySelectedText();
-        assertEquals("BCDE",engine.getClipboardContents());
+
+        assertEquals("BCD",engine.getClipboardContents());
     }
 
     @Test
@@ -56,8 +57,8 @@ class EngineTest {
         Selection selection = engine.getSelection();
         selection.setBeginIndex(1);selection.setEndIndex(4);
         engine.cutSelectedText();
-        assertEquals("BCDE",engine.getClipboardContents());
-        assertEquals("AF",engine.getBufferContents());
+        assertEquals("BCD",engine.getClipboardContents());
+        assertEquals("AEF",engine.getBufferContents());
 
     }
 
@@ -68,7 +69,7 @@ class EngineTest {
         Selection selection = engine.getSelection();
         selection.setBeginIndex(1);selection.setEndIndex(4);
         engine.copySelectedText();
-        assertEquals("BCDE",engine.getClipboardContents());
+        assertEquals("BCD",engine.getClipboardContents());
         assertEquals("ABCDEF",engine.getBufferContents());
     }
 
@@ -81,7 +82,7 @@ class EngineTest {
         engine.copySelectedText();
         selection.setBeginIndex(0);selection.setEndIndex(5);
         engine.pasteClipboard();
-        assertEquals("BCDE",engine.getClipboardContents());
-        assertEquals("BCDE",engine.getBufferContents());
+        assertEquals("BCD",engine.getClipboardContents());
+        assertEquals("BCDF",engine.getBufferContents());
     }
 }
