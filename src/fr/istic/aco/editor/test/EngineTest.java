@@ -3,6 +3,8 @@ package fr.istic.aco.editor.test;
 import fr.istic.aco.editor.api.Engine;
 import fr.istic.aco.editor.api.Selection;
 import fr.istic.aco.editor.impl.EngineImpl;
+import fr.istic.aco.editor.impl.Insert;
+import fr.istic.aco.editor.impl.UserInterfaceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -30,11 +32,14 @@ class EngineTest {
 
     @Test
     void getBufferContents() {
+        UserInterfaceImpl ihm = new UserInterfaceImpl();
         String ts= "Bonjour";
+
+        ihm.addCommand("inserer", new Insert(engine, ts));
         /*Selection selection = engine.getSelection();
         selection.setBeginIndex(1);
         selection.setEndIndex(6);*/
-        engine.insert(ts);
+        ihm.clicBoutonInserer();
         //String gbf= engine.getBufferContents();
         assertEquals(ts, engine.getBufferContents());
     }
