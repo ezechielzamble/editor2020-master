@@ -1,5 +1,5 @@
 package fr.istic.aco.editor.api;
 
-public interface Command {
+public interface Command extends Originator{
      void execute();
 }

@@ -14,7 +14,7 @@ public class UserInterfaceImpl implements UserInterface {
     }
 
     public UserInterfaceImpl() {
-        commands = new HashMap<String, Command>();
+        this.commands = new HashMap<String, Command>();
     }
 
     @Override

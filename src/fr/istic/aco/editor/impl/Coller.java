@@ -2,6 +2,7 @@ package fr.istic.aco.editor.impl;
 
 import fr.istic.aco.editor.api.Command;
 import fr.istic.aco.editor.api.Engine;
+import fr.istic.aco.editor.api.Memento;
 import fr.istic.aco.editor.api.Recorder;
 
 public class Coller implements Command {
@@ -23,4 +24,13 @@ public class Coller implements Command {
         this.recorder.save(this);
     }
 
+    @Override
+    public Memento getMemento() {
+        return null;
+    }
+
+    @Override
+    public void setMemento(Memento memento) {
+
+    }
 }
